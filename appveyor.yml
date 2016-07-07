@@ -52,7 +52,6 @@ install:
     - cmd: conda config --add channels defaults
     - cmd: conda config --get channels
     - cmd: conda install conda=4.1.6
-    - cmd: conda config --add auto_update_conda False
     - cmd: conda info
     - cmd: conda install -n root --quiet --yes conda-build anaconda-client jinja2 setuptools
     # Workaround for Python 3.4 and x64 bug in latest conda-build.
