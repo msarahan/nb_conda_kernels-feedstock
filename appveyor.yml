@@ -43,7 +43,7 @@ install:
     - cmd: rmdir C:\cygwin /s /q
     - appveyor DownloadFile "https://raw.githubusercontent.com/pelson/Obvious-CI/master/bootstrap-obvious-ci-and-miniconda.py"
     - cmd: python bootstrap-obvious-ci-and-miniconda.py %CONDA_INSTALL_LOCN% %TARGET_ARCH% %CONDA_PY:~0,1% --without-obvci
-    - cmd: set PATH=%CONDA_INSTALL_LOCN%;%CONDA_INSTALL_LOCN%\scripts;%PATH%
+    - cmd: call %CONDA_INSTALL_LOCN%\scripts\activate.bat
     - cmd: set PYTHONUNBUFFERED=1
 
     - cmd: conda config --set show_channel_urls true
@@ -54,16 +54,11 @@ install:
     - cmd: conda install conda=4.1.6
     - cmd: conda info
     - cmd: conda install -n root --quiet --yes conda-build anaconda-client jinja2 setuptools
-    # Workaround for Python 3.4 and x64 bug in latest conda-build.
-    # FIXME: Remove once there is a release that fixes the upstream issue
-    # ( https://github.com/conda/conda-build/issues/895 ).
-    - cmd: if "%TARGET_ARCH%" == "x64" if "%CONDA_PY%" == "34" conda install conda-build=1.20.0 --yes
 
 # Skip .NET project specific build phase.
 build: off
 
 test_script:
-    - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
     - "%CMD_IN_ENV% conda build -c defaults -c conda-forge recipe --quiet"
 deploy_script:
 
