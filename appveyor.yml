@@ -65,7 +65,7 @@ install:
     - cmd: conda config --set show_channel_urls true
     - cmd: conda config --add channels conda-forge
     - cmd: conda info
-    - cmd: conda --debug install -n root --quiet --yes conda-build anaconda-client jinja2 setuptools vs2015_runtime
+    - cmd: conda install -n root --quiet --yes conda-build anaconda-client jinja2 setuptools vs2015_runtime
     - cmd: git clone https://github.com/msarahan/conda-build
     - cmd: cd conda-build && git checkout debug_appveyor && python setup.py develop && cd ..
 
