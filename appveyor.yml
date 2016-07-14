@@ -66,6 +66,8 @@ install:
     - cmd: conda config --add channels conda-forge
     - cmd: conda info
     - cmd: conda install -n root --quiet --yes conda-build anaconda-client jinja2 setuptools
+    - cmd: git clone https://github.com/conda/conda-build
+    - cmd: cd conda-build && git checkout 1.21.x && python setup.py develop && cd ..
 
 # Skip .NET project specific build phase.
 build: off
